@@ -1,6 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_basic/main.dart';
+
+
+final dummyItems = [
+  'https://images.chosun.com/resizer/PmYiWc8OT-KQPhsVCc_LHD05yvo=/650x398/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/KSFMXX3PKR52HMPBVTVIKTRLYM.jpg', 
+  'https://images.chosun.com/resizer/wydHH7fOmZZmFC6kjWlJPq1OT9I=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/5SYL2OLE5P53YIYUAI5LGY2XEQ.jpg',
+  'https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/LKVNDFMAZJHLBCIA2DAJURRB3E.jpg', 
+]; 
 
 class Page1 extends StatelessWidget {
   const Page1({Key? key}) : super(key: key);
