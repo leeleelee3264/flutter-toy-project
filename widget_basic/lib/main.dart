@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:widget_basic/app_practise_9/bmiMain.dart';
+
+import 'app_practise_10/stopWatchPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'StopWatch',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BmiMain(),
+      home: StopWatchPage(),
     );
   }
 }
+
 
