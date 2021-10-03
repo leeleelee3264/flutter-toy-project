@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:widget_basic/app_practise_10/stopWatchPageState.dart';
+import 'package:widget_basic/app_practise_11/todolist_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); 
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,13 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'StopWatch',
+      title: '할 일 관리',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: StopWatchPage(),
+      home: TodoListPage(),
     );
   }
 }
-
-
