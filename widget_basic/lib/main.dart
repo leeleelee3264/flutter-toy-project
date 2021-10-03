@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:widget_basic/app_practise_10/stopWatchPageState.dart';
 
-import 'app_practise_10/stopWatchPage.dart';
 
 void main() {
   runApp(const MyApp());

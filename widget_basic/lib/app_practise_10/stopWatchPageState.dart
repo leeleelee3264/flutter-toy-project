@@ -1,4 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class StopWatchPage extends StatefulWidget {
   StopWatchPage({Key? key}) : super(key: key);
@@ -8,6 +11,20 @@ class StopWatchPage extends StatefulWidget {
 }
 
 class _StopWatchPageState extends State<StopWatchPage> {
+  Timer? _timer;
+
+  var _time = 0;
+  var _isRunning = false;
+
+  List<String> _lapTimes = [];
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +43,16 @@ class _StopWatchPageState extends State<StopWatchPage> {
             _clickButton();
           });
         },
-        child: Icon(Icons.play_arrow),
+        child: _isRunning ? Icon(Icons.pause) : Icon(Icons.play_arrow),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
   Widget _buildBody() {
+    var sec = _time ~/ 100;
+    var hundreadth = '${_time % 100}'.padLeft(2, '0');
+
     return Container(
       child: Padding(
         padding: const EdgeInsets.only(top: 30),
@@ -45,17 +65,17 @@ class _StopWatchPageState extends State<StopWatchPage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      '0',
+                      '$sec',
                       style: TextStyle(fontSize: 50.0),
                     ),
-                    Text('00')
+                    Text('$hundreadth')
                   ],
                 ),
                 Container(
                   width: 100,
                   height: 200,
                   child: ListView(
-                    children: <Widget>[],
+                    children: _lapTimes.map((e) => Text(e)).toList(),
                   ),
                 ),
               ],
@@ -65,7 +85,7 @@ class _StopWatchPageState extends State<StopWatchPage> {
               bottom: 10,
               child: FloatingActionButton(
                 backgroundColor: Colors.deepOrange,
-                onPressed: () {},
+                onPressed: _reset,
                 child: Icon(Icons.rotate_left),
               ),
             ),
@@ -73,7 +93,11 @@ class _StopWatchPageState extends State<StopWatchPage> {
               right: 10,
               bottom: 10,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    _recordLapTime('$sec.$hundreadth'); 
+                  });
+                },
                 child: Text('랩타임'),
               ),
             ),
@@ -84,6 +108,37 @@ class _StopWatchPageState extends State<StopWatchPage> {
   }
 
   void _clickButton() {
-    print("work");
+    _isRunning = !_isRunning;
+
+    if (_isRunning) {
+      _start();
+    } else {
+      _pause();
+    }
+  }
+
+  void _start() {
+    _timer = Timer.periodic(Duration(microseconds: 10), (timer) {
+      setState(() {
+        _time++;
+      });
+    });
+  }
+
+  void _pause() {
+    _timer?.cancel();
+  }
+
+  void _reset() {
+    setState(() {
+      _isRunning = false;
+      _timer?.cancel();
+      _lapTimes.clear(); 
+      _time = 0; 
+    });
+  }
+
+  void _recordLapTime(String time) {
+    _lapTimes.insert(0, '${_lapTimes.length+1}등 $time'); 
   }
 }
