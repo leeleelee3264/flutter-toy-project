@@ -1,6 +1,6 @@
 class ToDo { 
-  bool isDone = false; 
+  bool isDone; 
   late String title; 
 
-  ToDo(this.title); 
+  ToDo(this.title, {this.isDone = false}); 
 }
